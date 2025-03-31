@@ -9,8 +9,9 @@ use App\Models\Book;
 
 class GalleryController extends Controller
 {
-    public function index(){
-        $books = Book::paginate(5);
+    public function index()
+    {
+        $books = Book::paginate(8);
         $title = 'معرض الكتب';
 
         return view('gallery', compact(['books', 'title']));

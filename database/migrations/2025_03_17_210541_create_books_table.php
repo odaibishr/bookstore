@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('number_of_pages');
             $table->unsignedInteger('number_of_copies');
             
-            $table->decimal('price', 8, 2);
+            $table->decimal('price', 8, 2)->default(0.00);
             $table->string('cover_image');
             
             $table->timestamps();

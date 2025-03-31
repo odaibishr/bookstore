@@ -20,7 +20,7 @@
             </div>
             {{-- end search form --}}
 
-            <div class="mb-4 flex items-center justify-between gap-4 md:mb-8">
+            <div class="mb-4 xs:mt-4 flex items-center justify-between gap-4 md:mb-8">
                 <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">{{ $title }}</h2>
             </div>
 

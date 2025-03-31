@@ -55,25 +55,57 @@
 
                                     <div class="mt-auto">
                                         <div class="flex items-center mt-2.5 mb-5">
-                                            <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                                <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                    viewBox="0 0 22 20">
-                                                    <path
-                                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                </svg>
+                                            <div class="flex items-center">
+                                                @php
+                                                    $averageRating = $book->ratings->avg('value');
+                                                    $fullStars = floor($averageRating);
+                                                    $hasHalfStar = $averageRating - $fullStars >= 0.5;
+                                                    $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                                @endphp
+
+                                                @for ($i = 1; $i <= $fullStars; $i++)
+                                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                        </path>
+                                                    </svg>
+                                                @endfor
+
+                                                @if ($hasHalfStar)
+                                                    <svg class="w-5 h-5 text-yellow-400" fill="currentColor"
+                                                        viewBox="0 0 20 20">
+                                                        <defs>
+                                                            <linearGradient id="half-star">
+                                                                <stop offset="50%" stop-color="currentColor"></stop>
+                                                                <stop offset="50%" stop-color="#d1d5db"></stop>
+                                                            </linearGradient>
+                                                        </defs>
+                                                        <path fill="url(#half-star)"
+                                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                        </path>
+                                                    </svg>
+                                                @endif
+
+                                                @for ($i = 1; $i <= $emptyStars; $i++)
+                                                    <svg class="w-5 h-5 text-gray-300" fill="currentColor"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                                        </path>
+                                                    </svg>
+                                                @endfor
+
+
+                                                <span
+                                                    class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800 ms-3">{{ $book->ratings()->count() }}</span>
                                             </div>
-                                            <span
-                                                class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800 ms-3">{{ 5 }}</span>
                                         </div>
 
                                         <div class="flex items-center justify-between">
                                             <span
                                                 class="text-2xl font-bold text-gray-900 dark:text-white">${{ $book->price }}</span>
-                                            <a href="#"
-                                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                الإضافة للسلة
-                                            </a>
+
                                         </div>
                                     </div>
                                 </div>

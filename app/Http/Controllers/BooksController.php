@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\User;
+use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BooksController extends Controller
 {
@@ -66,5 +69,26 @@ class BooksController extends Controller
     public function details(Book $book)
     {
         return view('books.details', compact('book'));
+    }
+
+    public function rate(Request $request, Book $book)
+    {
+        if (!Auth::check()) {
+            return response()->json(['message' => 'يجب تسجيل الدخول لتقييم الكتاب.'], 401);
+        }
+
+        $validatedData = $request->validate([
+            'value' => 'required|integer|min:1|max:5'
+        ]);
+
+        Rating::updateOrCreate(
+            ['user_id' => auth()->id(), 'book_id' => $book->id],
+            ['value' => $validatedData['value']]
+        );
+
+
+
+
+        return back();
     }
 }

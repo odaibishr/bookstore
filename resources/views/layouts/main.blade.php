@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="ar">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>مكتبة برجنيف</title>
 
     <!-- Fonts -->
@@ -108,6 +111,23 @@
                 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
                     <ul
                         class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                        @auth
+                            <li>
+
+                                <a href="{{ route('cart.show') }}"
+                                    class="flex relative gap-1 items-center py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                                    aria-current="page">
+
+                                    <span
+                                        class="inline-flex items-center py-0.5 px-1.5 rounded-full text-xs font-medium bg-gray-500 text-white">{{ auth()->user()->booksInCart()->count() ?? 0 }}</span>
+
+
+                                    <span class="z-10">العربه</span>
+
+                                    <i class="bx z-10 bx-cart text-xl text-gray-500"></i>
+                                </a>
+                            </li>
+                        @endauth
                         <li>
                             <a href="{{ route('gallery.categories.index') }}"
                                 class="flex gap-1 items-center py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
@@ -132,15 +152,17 @@
                                 <i class="bx bx-pencil text-xl text-gray-500"></i>
                             </a>
                         </li>
-                        <li>
-                            <a href="#"
-                                class="flex gap-1 items-center py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                                aria-current="page">
-                                مشترياتي
-                                <i class="bx bx-shopping-bag text-xl text-gray-500"></i>
-                            </a>
-                        </li>
 
+                        @auth
+                            <li>
+                                <a href="#"
+                                    class="flex gap-1 items-center py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                                    aria-current="page">
+                                    مشترياتي
+                                    <i class="bx bx-shopping-bag text-xl text-gray-500"></i>
+                                </a>
+                            </li>
+                        @endauth
                     </ul>
                 </div>
             </div>
