@@ -40,6 +40,9 @@ class CartController extends Controller
             ]);
         }
 
+
+        toastr()->success('تمت إضافة الكتاب إلى السلة بنجاح');
+        
         return response()->json([
             'success' => true,
             'cart_count' => $user->booksInCart()->count(),
@@ -57,19 +60,23 @@ class CartController extends Controller
     public function removeOne(Book $book)
     {
         $user = auth()->user();
-        $oldQuantity = $user->booksInCart->where('book_id', $book->id)->first()->pivot->number_of_copies;
+        $oldQuantity = $user->booksInCart()->where('book_id', $book->id)->first()->pivot->number_of_copies;
         if ($oldQuantity > 1) {
-            auth()->user()->booksInCart->updateExistingPivot($book->id, ['number_of_copies' => --$oldQuantity]);
+            auth()->user()->booksInCart()->updateExistingPivot($book->id, ['number_of_copies' => --$oldQuantity]);
         } else {
-            auth()->user()->booksInCart->detach($book->id);
+            auth()->user()->booksInCart()->detach($book->id);
         }
+
+        toastr()->success('تمت إزالة نسخة من الكتاب من السلة بنجاح');
 
         return back();
     }
 
     public function removeAll(Book $book)
     {
-        auth()->user()->booksInCart->detach($book->id);
+        auth()->user()->booksInCart()->detach($book->id);
+
+        toastr()->success('تمت إزالة كل نسخ من الكتاب من السلة بنجاح');
 
         return back();
     }

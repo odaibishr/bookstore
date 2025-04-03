@@ -1,7 +1,11 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            {{-- <x-authentication-card-logo /> --}}
+            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <span class="self-center text-black text-2xl font-semibold whitespace-nowrap dark:text-white">مكتبة
+                    برجنيف</span>
+            </a>
         </x-slot>
 
         <x-validation-errors class="mb-4" />
@@ -17,8 +21,8 @@
 
             <div>
                 <x-label for="email" value="{{ __('site.email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autofocus
-                    autocomplete="username" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                    autofocus autocomplete="username" />
             </div>
 
             <div class="mt-4">

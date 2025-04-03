@@ -81,14 +81,11 @@ class BooksController extends Controller
             'value' => 'required|integer|min:1|max:5'
         ]);
 
+
         Rating::updateOrCreate(
             ['user_id' => auth()->id(), 'book_id' => $book->id],
             ['value' => $validatedData['value']]
         );
-
-
-
-
         return back();
     }
 }

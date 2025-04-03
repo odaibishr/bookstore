@@ -22,7 +22,7 @@
 
 <script>
     function rateBook(ratingValue) {
-        
+
 
 
         const bookId = {{ $book->id }}; // تأكد من تمرير معرف الكتاب إلى الصفحة
@@ -42,8 +42,10 @@
             .then(data => {
                 if (data.success) {
                     window.location.reload();
-                    console.log('تم التقييم بنجاح');
+                    toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+                    
                 } else {
+                    toastr.success('Have fun storming the castle!', 'Miracle Max Says')
                     window.location.reload();
                     console.error('حدث خطأ أثناء التقييم');
                 }
@@ -52,6 +54,6 @@
                 window.location.reload();
                 console.error('Error:', error);
             });
-    
+
     }
 </script>

@@ -1,6 +1,6 @@
 @include('layouts.main')
 
-<section class=" relative">
+<section class="relative">
     @if ($items->count())
         <div class="w-full max-w-7xl px-4 py-4 md:px-5 lg-6 mx-auto">
 
@@ -91,13 +91,11 @@
                 </div>
                 <div class="flex items-center justify-between w-full py-6">
                     <p class="font-manrope font-medium text-2xl leading-9 text-gray-900">
-                        المجموع الكلي</p>
                     <h6 class="font-manrope font-medium text-2xl leading-9 text-indigo-500">
                         ${{ $totalPrcie }}</h6>
                 </div>
             </div>
             <div class="flex items-center flex-col sm:flex-row justify-center gap-3 mt-8">
-
                 <a href="#"
                     class="flex gap-2 text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center dark:focus:ring-[#3b5998]/55 me-2 mb-2">
                     <span>بطاقة ائتمانية</span>

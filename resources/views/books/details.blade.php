@@ -181,10 +181,13 @@
                         document.getElementById('cart-message').textContent = data.warning_message;
                         document.getElementById('cart-message').classList.remove('hidden');
                     } else {
-                        alert(data.message); // يمكن استبداله بتحديث عدد المنتجات في السلة
+                        // alert(data.message); // يمكن استبداله بتحديث عدد المنتجات في السلة
+                        location.reload()
+
                     }
                 })
                 .catch(error => console.error('Error:', error));
+
         });
     </script>
 
